@@ -1,0 +1,58 @@
+body {
+    font-family: 'HELVETICA-NEUE','Arial','sans-serif'!important;
+}
+
+.btn-info {
+  color: white;
+ background-color: #928786;
+ border-color: transparent;;
+ }
+
+ .btn-primary {
+ color: #b41e8e;
+ background-color: white;
+ border-color: #b41e8e;
+ }
+
+ .pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+ z-index: 2;
+ color: #fff;
+ cursor: default;
+ background-color: #b41e8e;
+ border-color: transparent;
+ }
+
+ .btn-warning {
+     color: #fff;
+     background-color: #becd50;
+     border-color: transparent;
+ }
+
+ .btn-danger {
+    color: #fff;
+    background-color: #928786;
+    border-color: transparent;
+}
+
+.container {
+    width: 1170px;
+    overflow: scroll;
+}
+
+.table.table-bordered.table-hover.table-striped {
+    overflow: hidden;
+}
+
+#audi {
+  display:none;
+}
+
+#bmw {
+  display:none;
+}
+
+span.help-inline {
+    color: red;
+    font-weight: bolder;
+    font-size: smaller;
+}

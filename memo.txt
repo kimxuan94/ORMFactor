@@ -1,0 +1,103 @@
+<?php
+//// connexion
+require('MyPdo.php');
+try{
+		$pdo = new MyPDO();
+	}
+catch(PDOException $e){
+		echo "argggggggggggggg".$e->getMessage();
+	}
+
+// MyPDO
+ //la classe MyPdo hérite de la classe PDO (extends)
+class MyPdo extends PDO {
+/* on privilégie les var de classe (statiques) aux constantes : ainsi modifiables par programme */
+	static public $DB_NAME = "xxx";
+
+	static public $HOST = "xxx";
+
+	static public $USER = "xxx";
+
+	static public $PASS = "xxx";
+
+
+
+// le constructeur de MyPdo appelle le constructeur de PDO en lui passant ses paramètres
+	function __construct() {
+	$pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+	$pdo_options[PDO::ATTR_EMULATE_PREPARES] = false;//important sur les configs récentes
+	$pdo_options[PDO::ATTR_DEFAULT_FETCH_MODE] = PDO::FETCH_OBJ;//pour le mode objet
+	$pdo_options[PDO::MYSQL_ATTR_INIT_COMMAND] = "SET NAMES utf8";//pour l'utf-8
+
+	parent::__construct('mysql:host=' . MyPdo::$HOST . ';dbname=' . MyPdo::$DB_NAME, MyPdo::$USER, MyPdo::$PASS, $pdo_options);
+	}
+
+}
+// fin MyPDO
+
+
+//// Effectuer une query et un fetch
+$query = 'SELECT * FROM foo WHERE bar=1;';
+$arr = $pdo->query($query)->fetch(); //Sur une même ligne ...
+
+
+//// Effectuer une query et un fetchAll
+$query = 'SELECT * FROM foo WHERE bar<10;';
+$stmt = $pdo->query($query);
+$arrAll = $stmt->fetchAll(); //... ou sur 2 lignes
+
+//// Effectuer un exec
+$query = 'DELETE FROM foo WHERE bar<10;';
+$rowCount = $pdo->exec($query);
+
+//// nb de lignes (mysql_num_rows)
+$query = 'DELETE FROM foo WHERE bar<10;';
+$rowCount = $pdo->exec($query);
+$nb_lignes=$rowCount->rowCount();
+
+// nb de lignes pour un select
+$sql='select * from `users` order by nom';
+$qid = $pdo->query($sql);
+//test de mysql_num_rows
+$num_rows=0;
+while( $ligne=$qid->fetch(PDO::FETCH_OBJ) ) $num_rows++;
+$pdo=NULL;
+echo "nb de lignes=".$num_rows;
+
+ou :
+
+$sql = "SELECT COUNT(*) AS compte FROM `infotech`";
+$qid = $pdo->query($sql);
+$row=$qid->fetch(PDO::FETCH_OBJ);
+$nrows=$row->compte;
+
+
+
+// exécuter un select puis afficher les lignes
+$sql='select * from `conf` order by lastname';
+$qid = $pdo->query($sql);
+while( $ligne=$qid->fetch(PDO::FETCH_NUM) )...
+
+// exécuter un select puis mettre les données en tableau associatif
+$sql='select * from `conf` order by lastname';
+$qid = $pdo->query($sql);
+$data = $qid->fetchAll(PDO::FETCH_ASSOC);
+echo $data[0]["name"]; // tableau à 2 dimensions
+
+// filtrage affichage erreurs
+error_reporting(E_ALL^E_NOTICE^E_DEPRECATED);
+
+//affichage erreur PDO
+print_r(pdo->errorInfo());
+
+//requête préparée
+$query = 'DELETE FROM foo WHERE id=?';
+$qid=$pdo->prepare($query);
+$qid(execute(array($id));
+
+ou
+
+$query = 'DELETE FROM foo WHERE (id=:id)';
+$qid=$pdo->prepare($query);
+$qid(execute(array(':id'=>$id));
+?>

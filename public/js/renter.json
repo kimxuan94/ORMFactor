@@ -1,0 +1,19 @@
+{
+	"renters": {
+		"renter": [
+      { "id": 1, "rsociale": "ADA"},
+      { "id": 2, "rsociale": "Alamo"},
+      { "id": 3, "rsociale": "Aldau"},
+      { "id": 4, "rsociale": "Alphabet"},
+      { "id": 5, "rsociale": "Arval"},
+      { "id": 6, "rsociale": "Avis Rent a Car"},
+      { "id": 7, "rsociale": "Budget"},
+      { "id": 8, "rsociale": "Europcar"},
+      { "id": 9, "rsociale": "Leaseplan"},
+      { "id": 10,"rsociale": "Hertz Locations"},
+      { "id": 11,"rsociale": "National"},
+      { "id": 12,"rsociale": "Sixt Entreprise"},
+      { "id": 13,"rsociale": "Thrifty"}
+		]
+	}
+}
